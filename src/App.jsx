@@ -1,6 +1,6 @@
 import { Fragment } from "react"
-import CrossIcon from "./assets/images/components/CrossIcon"
-import MoonIcon from "./assets/images/components/MoonIcon"
+import CrossIcon from "./components/CrossIcon"
+import MoonIcon from "./components/MoonIcon"
 
 const App = ()=>{
   return(
