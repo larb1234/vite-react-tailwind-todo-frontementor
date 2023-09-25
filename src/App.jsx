@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Header from "./components/Header"
 import TodoComputed from "./components/TodoComputed"
 import TodoCreate from "./components/TodoCreate"
@@ -6,16 +6,24 @@ import TodoFilter from "./components/TodoFilter"
 import TodoList from "./components/TodoList"
 import { utils } from "prettier/doc"
 
-const initailStateTodos = [
+/* const initailStateTodos = [
   {id: 1, title: "Complete online Javascrit bluuweb Curse", completed:true},
   {id: 2, title: "Go to de gym", completed:false},
   {id: 3, title: "10 minutes meditation", completed:false},
   {id: 4, title: "Pick up grocerias", completed:false},
   {id: 5, title: "Complete todo app on Fronted Mentor", completed:true}
-]
+] */
+
+const initailStateTodos = JSON.parse(localStorage.getItem('Todos')) || []; //se pasa un array vacio si falla el parse
+
 const App = ()=>{
 
   const [todos, setTodos] = useState(initailStateTodos);
+
+  useEffect(() => {
+    console.log("todos")
+    localStorage.setItem('Todos',JSON.stringify(todos))
+  },[todos])
   
   const createTodo = (title) =>{
   
@@ -62,11 +70,14 @@ const App = ()=>{
 
 
   return(
-    <div className="bg-[url('./assets/images/bg-mobile-light.jpg')] bg-no-repeat bg-contain bg-gray-300 min-h-screen dark:bg-gray-900 dar:bg-[url('./assets/images/bg-mobile-dark.jpg')]" >
+    <div className="bg-[url('./assets/images/bg-mobile-light.jpg')] bg-no-repeat bg-contain bg-gray-300 min-h-screen dark:bg-gray-900 dar:bg-[url('./assets/images/bg-mobile-dark.jpg')]
+                    md:bg-[url('./assets/images/bg-desktop-light.jpg')]
+                    md:dark:bg-[url('./assets/images/bg-desktop-dark.jpg')]
+                   ">
       
       <Header/>
 
-      <main className="container mx-auto px-4 mt-8">
+      <main className="container mx-auto px-4 mt-8 md:max-w-xl">
        
         {/*TodoCreate*/}
         <TodoCreate createTodo={createTodo}/>
